@@ -1,6 +1,7 @@
 body {
   background-color: #f4f5f7;
   font-family: "Poppins";
+  margin:0;
 }
 
 .main {
@@ -113,14 +114,15 @@ img {
 }
 .col-md-1 {
 }
+
 .text-box {
-  width: 80%;
   height: 2rem;
   margin: 5px;
   padding: 5px 10px;
   border: 1px solid;
   border-radius: 5px;
 }
+
 .button {
   margin: 2%;
   width: 30%;
@@ -131,6 +133,7 @@ img {
   border-radius: 5px;
   cursor: pointer;
 }
+
 .button:hover {
 }
 
@@ -153,4 +156,16 @@ img {
 }
 .heading {
   margin-left: 1%;
+}
+.error{
+  color: red;
+}
+.search{
+  margin-left: auto;
+}
+.w-20{
+  width: 20rem;
+}
+.w-80p{
+  width: 80%;
 }
