@@ -1,7 +1,16 @@
 const Search = ({ query, setQuery }) => {
   return (
-    <div class="search">
-      <input type="text" class="text-box w-20" placeholder="What are you looking for?" value={query} onChange={(e) => setQuery(e.target.value)}/>
+    <div className="search">
+      <input
+        type="text"
+        className="text-box w-20"
+        placeholder="What are you looking for?"
+        value={query}
+        onChange={(e) => { 
+          e.preventDefault() 
+          setQuery(e.target.value) 
+        }}
+      />
     </div>
   );
 };
