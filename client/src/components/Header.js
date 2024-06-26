@@ -13,7 +13,7 @@ const Header = ({ query, setQuery }) => {
     <header>
         <nav>
           <div class="container">
-            <a href="javascript:0">Customer Register</a>
+            <a href="/">Customer Register</a>
             <Search query={query} setQuery={setQuery}/>
             <ul class="nav right">
             <button class="btn" onClick={()=>redirect()}><i class="fa fa-plus"></i> Create Customer</button>
