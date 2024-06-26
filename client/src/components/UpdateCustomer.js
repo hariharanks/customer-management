@@ -14,6 +14,7 @@ const UpdateCustomer = () => {
   const [customer, setCustomer] = useState({ name: '', email: '', phone: '', address: '' });
 
   useEffect(() => {
+    clear();
     if (id) {
       axios.get(`/api/customers/${id}`)
         .then(response => {
@@ -73,80 +74,82 @@ const UpdateCustomer = () => {
   }
 
   return (
-    <div className='container'>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className='update-container'>
-          <div className='profile-card-update'>
-            <div className='profile-head'>
-              <a href='/' className='arrow-div'>
-                <img src={require('../assests/leftArrow.png')} className='arrow-icon' alt="Back" />
-              </a>
-              <h3 className='heading'>{id ? `Update Customer` : `Add Customer`}</h3>
-            </div>
-            <div className='col-md-1'>
-              <input
-                id='1'
-                type="text"
-                className='text-box'
-                name="name"
-                placeholder="Name"
-                {...register('name', { required: 'Name is required' })}
-              />
-              {errors.name && <span className='error'>{errorDisplay(1, errors.name.message)}</span>}
-            </div>
-            <div className='col-md-1'>
-              <input
-                id='2'
-                type="email"
-                className='text-box'
-                name="email"
-                placeholder="Email"
-                {...register('email', {
-                  required: 'Email is required',
-                  pattern: {
-                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                    message: 'Invalid email address'
-                  }
-                })}
-              />
-              {errors.email && <span className='error'>{errorDisplay(2, errors.email.message)}</span>}
-            </div>
-            <div className='col-md-1'>
-              <input
-                id='3'
-                type="text"
-                className='text-box'
-                name="phone"
-                placeholder="Phone"
-                {...register('phone', {
-                  required: 'Phone is required',
-                  pattern: {
-                    value: /^\d{10}$/,
-                    message: 'Invalid phone number'
-                  }
-                })}
-              />
-              {errors.phone && <span className='error'>{errorDisplay(3, errors.phone.message)}</span>}
-            </div>
-            <div className='col-md-1'>
-              <input
-                id='4'
-                type="text"
-                className='text-box'
-                name="address"
-                placeholder="Address"
-                {...register('address', { required: 'Address is required' })}
-              />
-              {errors.address && <span className='error'>{errorDisplay(4, errors.address.message)}</span>}
-            </div>
-            <div className='col-md-1'>
-              <button className="button success" type="submit">{id ? 'Update' : 'Add'}</button>
-              {id && <button className="button delete" onClick={handleDelete} type="button">Delete</button>}
+    <div className='main'>
+      <div className='container'>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className='update-container'>
+            <div className='profile-card-update'>
+              <div className='profile-head'>
+                <a href='/' className='arrow-div'>
+                  <img src={require('../assests/leftArrow.png')} className='arrow-icon' alt="Back" />
+                </a>
+                <h3 className='heading'>{id ? `Update Customer` : `Create Customer`}</h3>
+              </div>
+              <div className='col-md-1'>
+                <input
+                  id='1'
+                  type="text"
+                  className='text-box w-80p'
+                  name="name"
+                  placeholder="Name"
+                  {...register('name', { required: 'Name is required' })}
+                />
+                {errors.name && <span className='error'>{errorDisplay(1, errors.name.message)}</span>}
+              </div>
+              <div className='col-md-1'>
+                <input
+                  id='2'
+                  type="email"
+                  className='text-box w-80p'
+                  name="email"
+                  placeholder="Email"
+                  {...register('email', {
+                    required: 'Email is required',
+                    pattern: {
+                      value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                      message: 'Invalid email address'
+                    }
+                  })}
+                />
+                {errors.email && <span className='error'>{errorDisplay(2, errors.email.message)}</span>}
+              </div>
+              <div className='col-md-1'>
+                <input
+                  id='3'
+                  type="text"
+                  className='text-box w-80p'
+                  name="phone"
+                  placeholder="Phone"
+                  {...register('phone', {
+                    required: 'Phone is required',
+                    pattern: {
+                      value: /^\d{10}$/,
+                      message: 'Invalid phone number'
+                    }
+                  })}
+                />
+                {errors.phone && <span className='error'>{errorDisplay(3, errors.phone.message)}</span>}
+              </div>
+              <div className='col-md-1'>
+                <input
+                  id='4'
+                  type="text"
+                  className='text-box w-80p'
+                  name="address"
+                  placeholder="Address"
+                  {...register('address', { required: 'Address is required' })}
+                />
+                {errors.address && <span className='error'>{errorDisplay(4, errors.address.message)}</span>}
+              </div>
+              <div className='col-md-1'>
+                <button className="button success" type="submit">{id ? 'Update' : 'Add'}</button>
+                {id && <button className="button delete" onClick={handleDelete} type="button">Delete</button>}
+              </div>
             </div>
           </div>
-        </div>
-      </form>
-      <ToastContainer />
+        </form>
+        <ToastContainer />
+      </div>
     </div>
 
   );

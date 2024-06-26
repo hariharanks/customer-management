@@ -1,12 +1,11 @@
 import CustomerList from "./CustomerList"
-import Header from "./Header";
 
-const Home = () => {
+
+const Home = ({ query }) => {
   return (
     <>
-      <Header />
       <div className='main'>
-        <CustomerList />
+        <CustomerList query={query}/>
       </div>
     </>
   )

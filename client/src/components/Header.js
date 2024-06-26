@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
+import Search from './utils/SearchBar';
 
 
-const Header = () => {
+const Header = ({ query, setQuery }) => {
   const navigate = useNavigate();
 
   const redirect = (id) => {
@@ -13,6 +14,7 @@ const Header = () => {
         <nav>
           <div class="container">
             <a href="javascript:0">Customer Register</a>
+            <Search query={query} setQuery={setQuery}/>
             <ul class="nav right">
             <button class="btn" onClick={()=>redirect()}><i class="fa fa-plus"></i> Create Customer</button>
             </ul>
