@@ -10,10 +10,11 @@ const CustomerList = () => {
       .then(response => setCustomers(response.data))
       .catch(error => console.error(error));
   }, []);
+
   const redirect = (id) => {
-    console.log("idddddd", id);
     navigate(`/update/${id}`);
   }
+  
   return (
     <div className='container grid'>
       {customers.map(customer => (

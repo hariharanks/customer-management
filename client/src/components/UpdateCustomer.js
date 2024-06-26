@@ -3,82 +3,152 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { updateCustomer, deleteCustomer } from './api';
+import { updateCustomer, deleteCustomer, addCustomer } from './api';
 import { useNavigate } from "react-router-dom";
-
+import { useForm } from 'react-hook-form';
 
 const UpdateCustomer = () => {
   const { id } = useParams();
-  const [customer, setCustomer] = useState({ name: '', email: '', phone: '', address: '' });
   const navigate = useNavigate();
+  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const [customer, setCustomer] = useState({ name: '', email: '', phone: '', address: '' });
 
   useEffect(() => {
-    axios.get(`/api/customers/${id}`)
-      .then(response => {
-        const { name, email, phone, address } = response.data;
-        setCustomer({ name: name, email: email, phone: phone, address: address });
-      })
-      .catch(error => console.error(error));
-  }, [id]);
+    if (id) {
+      axios.get(`/api/customers/${id}`)
+        .then(response => {
+          const { name, email, phone, address } = response.data;
+          setCustomer({ name, email, phone, address });
+          reset({ name, email, phone, address });
+        })
+        .catch(error => console.error(error));
+    }
+  }, [id, reset]);
 
-  const handleChange = (e) => {
-    setCustomer({ ...customer, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const result = await updateCustomer(id, customer);
-    if (result) {
-      toast.success('Customer successfully updated');
+  const onSubmit = async (data) => {
+    if (id) {
+      const result = await updateCustomer(id, data);
+      if (result) {
+        toast.success('Customer successfully updated');
+      } else {
+        toast.error('Failed to update');
+      }
     } else {
-      toast.error('Failed to update');
+      const result = await addCustomer(data);
+      if (result.error) {
+        toast.error(result.message);
+        return;
+      }
+      if (result) {
+        toast.success('Customer successfully added');
+        clear();
+      } else {
+        toast.error('Failed to add');
+      }
     }
   };
-  const handleDelete = async (e) => {
-    e.preventDefault();
+
+  const handleDelete = async () => {
     const result = await deleteCustomer(id);
     if (result) {
-      toast.success('Customer delete successfully');
+      toast.success('Customer deleted successfully');
+      clear();
       setTimeout(() => {
-        navigate('/')
-      }, 5000)
+        navigate('/');
+      }, 2000);
     } else {
       toast.error('Failed to delete');
     }
+  };
+
+  const clear = () => {
+    setCustomer({ name: '', email: '', phone: '', address: '' });
+    reset({ name: '', email: '', phone: '', address: '' });
+  };
+
+  const errorDisplay = (id, msg) => {
+    toast.error(msg, {
+      toastId: id,
+    });
   }
 
   return (
-    <div className=''>
-      <form onSubmit={handleSubmit}>
+    <div className='container'>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className='update-container'>
           <div className='profile-card-update'>
             <div className='profile-head'>
               <a href='/' className='arrow-div'>
-                <img src={require('../assests/leftArrow.png')} className='arrow-icon' />
+                <img src={require('../assests/leftArrow.png')} className='arrow-icon' alt="Back" />
               </a>
-              <h3 className='heading'>Update Customer</h3>
+              <h3 className='heading'>{id ? `Update Customer` : `Add Customer`}</h3>
             </div>
             <div className='col-md-1'>
-              <input type="text" className='text-box' name="name" value={customer.name} onChange={handleChange} placeholder="Name" />
+              <input
+                id='1'
+                type="text"
+                className='text-box'
+                name="name"
+                placeholder="Name"
+                {...register('name', { required: 'Name is required' })}
+              />
+              {errors.name && <span className='error'>{errorDisplay(1, errors.name.message)}</span>}
             </div>
             <div className='col-md-1'>
-              <input type="email" className='text-box' name="email" value={customer.email} onChange={handleChange} placeholder="Email" />
+              <input
+                id='2'
+                type="email"
+                className='text-box'
+                name="email"
+                placeholder="Email"
+                {...register('email', {
+                  required: 'Email is required',
+                  pattern: {
+                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                    message: 'Invalid email address'
+                  }
+                })}
+              />
+              {errors.email && <span className='error'>{errorDisplay(2, errors.email.message)}</span>}
             </div>
             <div className='col-md-1'>
-              <input type="text" className='text-box' name="phone" value={customer.phone} onChange={handleChange} placeholder="Phone" />
+              <input
+                id='3'
+                type="text"
+                className='text-box'
+                name="phone"
+                placeholder="Phone"
+                {...register('phone', {
+                  required: 'Phone is required',
+                  pattern: {
+                    value: /^\d{10}$/,
+                    message: 'Invalid phone number'
+                  }
+                })}
+              />
+              {errors.phone && <span className='error'>{errorDisplay(3, errors.phone.message)}</span>}
             </div>
             <div className='col-md-1'>
-              <input type="text" className='text-box' name="address" value={customer.address} onChange={handleChange} placeholder="Address" />
+              <input
+                id='4'
+                type="text"
+                className='text-box'
+                name="address"
+                placeholder="Address"
+                {...register('address', { required: 'Address is required' })}
+              />
+              {errors.address && <span className='error'>{errorDisplay(4, errors.address.message)}</span>}
             </div>
             <div className='col-md-1'>
-              <button className="button success" type="submit">Update</button>
-              <button className="button delete" onClick={(e) => handleDelete(e)} type="delete">Delete</button>
+              <button className="button success" type="submit">{id ? 'Update' : 'Add'}</button>
+              {id && <button className="button delete" onClick={handleDelete} type="button">Delete</button>}
             </div>
           </div>
-          <ToastContainer />
         </div>
       </form>
+      <ToastContainer />
     </div>
+
   );
 };
 

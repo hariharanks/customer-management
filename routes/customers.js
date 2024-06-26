@@ -7,8 +7,13 @@ module.exports = (db) => {
 
     router.post('/', async (req, res) => {
         try {
+            const {phone} = req.body;
+            const customer = await collection.findOne({ phone: phone });
+            if(customer){
+                res.status(409).json({ error: 'Customer already exist with same phone number' });
+                return;
+            }
             const result = await collection.insertOne(req.body);
-            console.log("result=====", result);
             res.status(201).json(result);
         } catch (error) {
             res.status(500).json({ error: 'Failed to create a new customer' });
@@ -44,7 +49,6 @@ module.exports = (db) => {
                 { $set: req.body },
                 { returnDocument: 'after' }
             );
-            console.log("aaaaa",result);
             if (!result._id) {
                 return res.status(404).json({ error: 'Customer not found' });
             }

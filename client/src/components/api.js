@@ -17,9 +17,7 @@ const updateCustomer = async (id, data) => {
 const deleteCustomer = async (id) => {
     try {
         const response = await axios.delete(`/api/customers/${id}`);
-        console.log("ressssssss", response);
         if (response.status === 200) {
-            console.log(response.data)
             return response.data;
         } else {
             return null;
@@ -29,4 +27,24 @@ const deleteCustomer = async (id) => {
     }
 }
 
-export { updateCustomer, deleteCustomer };
+const addCustomer = async (data) => {
+    try {
+        const response = await axios.post('/api/customers', data);
+        if (response.status === 201) {
+            return response.data;
+        }
+
+        else {
+            return null;
+        }
+    } catch (e) {
+        console.log(e);
+        if (e.response.status === 409) {
+            const { data } = e.response;
+            let res = { status: e.response.status, message: data.error, error: true }
+            return res;
+        }
+    }
+}
+
+export { updateCustomer, deleteCustomer, addCustomer };
