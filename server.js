@@ -11,10 +11,7 @@ app.use(express.json());
 
 const startServer = async () => {
     try {
-        await mongoose.connect(process.env.MONGO_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
+        await mongoose.connect(process.env.MONGO_URI);
         console.log("Database connected!");
 
         const customerRoutes = require('./routes/customers');
