@@ -7,7 +7,7 @@ import { updateCustomer, deleteCustomer, addCustomer } from './api';
 import { useNavigate } from "react-router-dom";
 import { useForm } from 'react-hook-form';
 import { confirmAlert } from 'react-confirm-alert';
-import 'react-confirm-alert/src/react-confirm-alert.css'; 
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const UpdateCustomer = () => {
   const { id } = useParams();
@@ -31,6 +31,11 @@ const UpdateCustomer = () => {
   const onSubmit = async (data) => {
     if (id) {
       const result = await updateCustomer(id, data);
+      console.log("result====", result);
+      if (result.error) {
+        toast.error(result.message);
+        return;
+      }
       if (result) {
         toast.success('Customer successfully updated');
       } else {
@@ -56,19 +61,19 @@ const UpdateCustomer = () => {
       title: 'Are you sure ?',
       buttons: [
         {
-          className:'btn-yes',
+          className: 'btn-yes',
           label: 'Yes',
           onClick: () => deleteUser()
         },
         {
-          className:'btn-no',
+          className: 'btn-no',
           label: 'No',
         }
       ]
     });
   };
 
-  const deleteUser = async ()=>{
+  const deleteUser = async () => {
     const result = await deleteCustomer(id);
     if (result) {
       toast.success('Customer deleted successfully');
@@ -129,6 +134,7 @@ const UpdateCustomer = () => {
                       message: 'Invalid email address'
                     }
                   })}
+                  disabled={id ? true : false}
                 />
                 {errors.email && <span className='error'>{errorDisplay(2, errors.email.message)}</span>}
               </div>

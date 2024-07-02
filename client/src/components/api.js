@@ -11,6 +11,11 @@ const updateCustomer = async (id, data) => {
         }
     } catch (e) {
         console.log(e);
+        if (e.response.status === 409) {
+            const { data } = e.response;
+            let res = { status: e.response.status, message: data.error, error: true }
+            return res;
+        }
     }
 }
 

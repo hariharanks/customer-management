@@ -25,7 +25,7 @@ const CustomerList = ({ query }) => {
     const filterCustomers = () => {
       if (query) {
         const filtered = customers.filter(customer =>
-          customer.name.toLowerCase().includes(query.toLowerCase())
+          customer.name.toLowerCase().includes(query.toLowerCase()) || customer.phone.includes(query)
         );
         setFilteredCustomers(filtered);
       } else {

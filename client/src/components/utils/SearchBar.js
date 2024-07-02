@@ -4,7 +4,7 @@ const Search = ({ query, setQuery }) => {
       <input
         type="text"
         className="text-box w-20"
-        placeholder="What are you looking for?"
+        placeholder="Search for Name / Phone number"
         value={query}
         onChange={(e) => { 
           e.preventDefault() 

@@ -45,11 +45,18 @@ router.get('/:id', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
     try {
-        const customer = await Customer.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if (!customer) {
-            return res.status(404).json({ error: 'Customer not found' });
+        const { phone } = req.body;
+        const oldCustomer = await Customer.findOne({ phone: phone });
+        if (req.params.id === oldCustomer.id) {
+            const customer = await Customer.findByIdAndUpdate(req.params.id, req.body, { new: true });
+            if (!customer) {
+                return res.status(404).json({ error: 'Customer not found' });
+            }
+            res.status(200).json(customer);
+        } else if (oldCustomer.phone === phone) {
+            return res.status(409).json({ error: 'Customer already exists with the same Phone number' });
         }
-        res.status(200).json(customer);
+
     } catch (error) {
         res.status(500).json({ error: 'Failed to update the customer' });
     }
