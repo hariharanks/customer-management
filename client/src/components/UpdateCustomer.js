@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { updateCustomer, deleteCustomer, addCustomer } from './api';
+import { updateCustomer, deleteCustomer, addCustomer } from './api/api';
 import { useNavigate } from "react-router-dom";
 import { useForm } from 'react-hook-form';
 import { confirmAlert } from 'react-confirm-alert';

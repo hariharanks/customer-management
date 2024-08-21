@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import Search from './utils/SearchBar';
+import Search from './SearchBar';
 
 
 const Header = ({ query, setQuery }) => {
