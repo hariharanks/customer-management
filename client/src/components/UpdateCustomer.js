@@ -142,7 +142,7 @@ const UpdateCustomer = () => {
                   {...register('phone', {
                     required: 'Phone is required',
                     pattern: {
-                      value: /^\d{10}$/,
+                      value: /^\d/,
                       message: 'Invalid phone number'
                     }
                   })}
