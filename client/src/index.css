@@ -1,7 +1,9 @@
 :root {
   --green: #22a13d;
   --red: #c70000;
-  --primary-color: #f4f5f7;
+  --primary-color: #658cc2;
+  --secondary-color: #2e5caf;
+  --grey: #5d6169;
 }
 
 body {
@@ -27,8 +29,8 @@ header {
 header nav {
   display: flex;
   align-items: center;
-  height: 50px;
-  background-color: #949494;
+  height: 65px;
+  background-color: var(--grey);
   color: #fff;
 }
 header nav > .container {
@@ -91,6 +93,7 @@ header .nav > * {
   border-radius: 10px;
   text-align: center;
   padding: 15px;
+  width: 50%;
 }
 
 .profile-card:hover {
@@ -118,15 +121,17 @@ img {
 .update-container {
   grid-template-columns: 1fr;
 }
-.col-md-1 {
+.input-box {
+  margin-top: 15px;
 }
 
 .text-box {
-  height: 2rem;
+  height: 3rem;
   margin: 5px;
   padding: 5px 10px;
   border: 1px solid;
   border-radius: 5px;
+  box-sizing: border-box;
 }
 
 .button {
@@ -175,6 +180,9 @@ img {
 .w-80p{
   width: 80%;
 }
+.w-100p{
+  width: 100%;
+}
 .btn-yes{
   background-color: var(--green) !important;
   width: 10rem;
@@ -187,4 +195,10 @@ img {
   width: 10rem;
   height: 2rem;
   font-size: 15px !important;
+}
+
+.center{
+  margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
 }

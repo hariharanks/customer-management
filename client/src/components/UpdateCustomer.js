@@ -93,18 +93,17 @@ const UpdateCustomer = () => {
   }
 
   return (
-    <div className='main'>
       <div className='container'>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className='update-container'>
-            <div className='profile-card-update'>
+            <div className='profile-card-update center'>
               <div className='profile-head'>
                 <a href='/' className='arrow-div'>
                   <img src={require('../assests/leftArrow.png')} className='arrow-icon' alt="Back" />
                 </a>
                 <h3 className='heading'>{id ? `Update Customer` : `Create Customer`}</h3>
               </div>
-              <div className='col-md-1'>
+              <div className='input-box'>
                 <input
                   id='1'
                   type="text"
@@ -115,7 +114,7 @@ const UpdateCustomer = () => {
                 />
                 {errors.name && <span className='error'>{errorDisplay(1, errors.name.message)}</span>}
               </div>
-              <div className='col-md-1'>
+              <div className='input-box'>
                 <input
                   id='2'
                   type="email"
@@ -132,7 +131,7 @@ const UpdateCustomer = () => {
                 />
                 {errors.email && <span className='error'>{errorDisplay(2, errors.email.message)}</span>}
               </div>
-              <div className='col-md-1'>
+              <div className='input-box'>
                 <input
                   id='3'
                   type="text"
@@ -149,7 +148,7 @@ const UpdateCustomer = () => {
                 />
                 {errors.phone && <span className='error'>{errorDisplay(3, errors.phone.message)}</span>}
               </div>
-              <div className='col-md-1'>
+              <div className='input-box'>
                 <input
                   id='4'
                   type="text"
@@ -160,7 +159,7 @@ const UpdateCustomer = () => {
                 />
                 {errors.address && <span className='error'>{errorDisplay(4, errors.address.message)}</span>}
               </div>
-              <div className='col-md-1'>
+              <div className='input-box'>
                 <button className="button success" type="submit">{id ? 'Update' : 'Add'}</button>
                 {id && <button className="button delete" onClick={handleDelete} type="button">Delete</button>}
               </div>
@@ -169,7 +168,6 @@ const UpdateCustomer = () => {
         </form>
         <ToastContainer />
       </div>
-    </div>
 
   );
 };

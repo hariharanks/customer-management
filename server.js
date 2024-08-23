@@ -14,6 +14,8 @@ const startServer = async () => {
         await mongoose.connect(process.env.MONGO_URI);
         console.log("Database connected!");
 
+        const authRoutes = require('./routes/auth');
+        app.use('/api/auth', authRoutes);
         const customerRoutes = require('./routes/customers');
         app.use('/api/customers', customerRoutes);
 
