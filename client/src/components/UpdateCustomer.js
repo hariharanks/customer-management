@@ -9,8 +9,9 @@ import { useForm } from 'react-hook-form';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'; 
 
-const UpdateCustomer = () => {
-  const { id } = useParams();
+const UpdateCustomer = ({customerId, onNavClick}) => {
+  const id = customerId || '';
+  
   const navigate = useNavigate();
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const [customer, setCustomer] = useState({ name: '', email: '', phone: '', address: '' });
@@ -98,7 +99,7 @@ const UpdateCustomer = () => {
           <div className='update-container'>
             <div className='profile-card-update center'>
               <div className='profile-head'>
-                <a href='/' className='arrow-div'>
+                <a onClick={()=>onNavClick('list')} className='arrow-div'>
                   <img src={require('../assests/leftArrow.png')} className='arrow-icon' alt="Back" />
                 </a>
                 <h3 className='heading'>{id ? `Update Customer` : `Create Customer`}</h3>

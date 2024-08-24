@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { getCustomers } from './api/customer';
 
-const CustomerList = ({ query }) => {
+const CustomerList = ({ query, handleCustomer, onNavClick }) => {
   const [customers, setCustomers] = useState([]);
   const [filteredCustomers, setFilteredCustomers] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCustomers = async () => {
@@ -38,7 +36,9 @@ const CustomerList = ({ query }) => {
   }, [query, customers]);
 
   const redirect = (id) => {
-    navigate(`/update/${id}`);
+    handleCustomer(id);
+    onNavClick('view');
+    // navigate(`/update/${id}`);
   }
 
   return (

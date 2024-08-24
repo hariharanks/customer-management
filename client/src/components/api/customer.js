@@ -1,7 +1,6 @@
 
 import { axiosInstance } from './token';
 
-
 const getCustomers = async () => {
   try {
     const response = await axiosInstance.get(`/api/customers`);
@@ -35,8 +34,6 @@ const getCustomer = async (id) => {
 const updateCustomer = async (id, data) => {
   try {
     const response = await axiosInstance.put(`/api/customers/${id}`, data);
-console.log("response==", response);
-
     if (response.status === 200) {
       return response.data;
     } else {

@@ -18,7 +18,6 @@ const Header = ({ query, setQuery }) => {
   }
   const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true' || false;
   const loggedInUser = localStorage.getItem('loggedInUser');
-  console.log("isLoggedIn======", isLoggedIn);
 
   return (
     <header>
