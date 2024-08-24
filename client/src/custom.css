@@ -1,11 +1,14 @@
+.login-background{
+    background-image: url('./assests/main-bg.jpg');
+    background-size: cover;
+}
 .wrapper{
     width: 420px;
-    background: var(--secondary-color);
-    color: #fff;
+    background: #ffffff00;
+    color: #000;
     /* background: salmon; */
     border: 2px solid rgba(255, 255, 255, .2);
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
-    color: #fff;
     backdrop-filter: blur(20px);
     border-radius: 10px;
     padding: 30px 40px;

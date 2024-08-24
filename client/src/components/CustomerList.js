@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import { getCustomers } from './api/customer';
 
 const CustomerList = ({ query }) => {
   const [customers, setCustomers] = useState([]);
@@ -10,7 +11,7 @@ const CustomerList = ({ query }) => {
   useEffect(() => {
     const fetchCustomers = async () => {
       try {
-        const response = await axios.get('/api/customers');
+        const response = await getCustomers();
         setCustomers(response.data);
         setFilteredCustomers(response.data);
       } catch (error) {
@@ -42,7 +43,7 @@ const CustomerList = ({ query }) => {
 
   return (
     <>
-      {filteredCustomers.length > 0 ?
+      {filteredCustomers && filteredCustomers.length > 0 ?
         <div className='container grid'>
           {filteredCustomers.map(customer => (
             <div

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { updateCustomer, deleteCustomer, addCustomer } from './api/api';
+import { updateCustomer, deleteCustomer, addCustomer, getCustomer } from './api/customer';
 import { useNavigate } from "react-router-dom";
 import { useForm } from 'react-hook-form';
 import { confirmAlert } from 'react-confirm-alert';
@@ -18,7 +18,7 @@ const UpdateCustomer = () => {
   useEffect(() => {
     clear();
     if (id) {
-      axios.get(`/api/customers/${id}`)
+      getCustomer(id)
         .then(response => {
           const { name, email, phone, address } = response.data;
           setCustomer({ name, email, phone, address });
@@ -30,11 +30,11 @@ const UpdateCustomer = () => {
 
   const onSubmit = async (data) => {
     if (id) {
-      const result = await updateCustomer(id, data);
-      if (result) {
+      const result = await updateCustomer(id, data);      
+      if (result.success) {
         toast.success('Customer successfully updated');
       } else {
-        toast.error('Failed to update');
+        toast.error(result.error);
       }
     } else {
       const result = await addCustomer(data);
