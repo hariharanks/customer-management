@@ -5,7 +5,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 import { useAuth } from '../context/authContext';
 
-const Login = (() => {
+const Login = (({setIsAuthenticated}) => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const navigate = useNavigate();
   const { saveToken } = useAuth();
@@ -13,16 +13,17 @@ const Login = (() => {
     const result = await login(data);
     if (result) {
       const { jwtToken, name } = result;
-      saveToken(jwtToken);
+      saveToken(jwtToken, true);
       localStorage.setItem('token', jwtToken);
       localStorage.setItem('loggedInUser', name);
       localStorage.setItem('isLoggedIn', true);
+      setIsAuthenticated(true);
       setTimeout(()=>{
         navigate('/home');
       },1000)
       toast.success(result.message);
     } else {
-      toast.error('Failed to update');
+      toast.error('Invalid username / password');
     }
   }
 

@@ -1,12 +1,9 @@
-
 import { axiosInstance } from './token';
 
 const getCustomers = async () => {
   try {
     const response = await axiosInstance.get(`/api/customers`);
     if (response.status === 200) {
-      console.log("res", response.data);
-      
       return response.data;
     } else {
       return null;

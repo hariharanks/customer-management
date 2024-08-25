@@ -1,17 +1,18 @@
-import react, { useEffect } from 'react';
-import { replace, useLocation, useNavigate } from 'react-router-dom';
-import { jwtDecode } from 'jwt-decode';
+import React, { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode'; // Corrected import
+import { useAuth } from '../context/authContext';
 
-const RefreshHandler = ({ setIsAuthenticated }) => {
+const RefreshHandler = ({setIsAuthenticated}) => {
   const location = useLocation();
   const navigate = useNavigate();
+  // const { setIsAuthenticated } = useAuth();
 
   const isTokenExpired = (token) => {
     try {
       const decoded = jwtDecode(token);
       const currentTime = Date.now() / 1000; // Current time in seconds
 
-      // Compare current time with token expiration time
       return decoded.exp < currentTime;
     } catch (error) {
       console.error('Invalid token:', error);
@@ -20,20 +21,29 @@ const RefreshHandler = ({ setIsAuthenticated }) => {
   };
 
   useEffect(() => {
-    if (localStorage.getItem('token')) {
-      if (!isTokenExpired(localStorage.getItem('token'))) {
+    const token = localStorage.getItem('token');
+    console.log("token", token);
+    
+    if (token) {
+      if (!isTokenExpired(token)) {
         setIsAuthenticated(true);
-        if (location.pathname === '/' || location.pathname === '/login' || location.pathname === 'signUp') {
-          navigate('/home', { replace: false });
+        // Redirect to /home if on certain paths
+        if (location.pathname === '/' || location.pathname === '/login' || location.pathname === '/signUp') {
+          navigate('/home');
         }
       } else {
+        // Redirect to /login if token is expired
+        setIsAuthenticated(false);
         navigate('/login');
       }
+    } else {
+      // Redirect to /login if no token is present
+      setIsAuthenticated(false);
+      navigate('/login');
     }
-  }, [location, navigate, setIsAuthenticated])
+  }, [location, navigate, setIsAuthenticated]);
 
-  return (
-    null
-  )
+  return null;
 }
+
 export default RefreshHandler;

@@ -6,11 +6,13 @@ const AuthContext = createContext();
 // Create a provider component
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('token') || '');
+  
 
   // Function to save token to context and localStorage
   const saveToken = (userToken) => {
     localStorage.setItem('token', userToken);
     setToken(userToken);
+    // setIsAuthenticated(isAuthenticated);
   };
 
   // Function to remove token from context and localStorage

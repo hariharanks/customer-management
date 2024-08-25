@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { getCustomers } from './api/customer';
+import { getCustomers } from '../api/customer';
 
 const CustomerList = ({ query, handleCustomer, onNavClick }) => {
   const [customers, setCustomers] = useState([]);
@@ -37,7 +37,7 @@ const CustomerList = ({ query, handleCustomer, onNavClick }) => {
 
   const redirect = (id) => {
     handleCustomer(id);
-    onNavClick('view');
+    onNavClick('viewCustomer');
     // navigate(`/update/${id}`);
   }
 

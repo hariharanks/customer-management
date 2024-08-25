@@ -6,9 +6,9 @@
   --grey: #5d6169;
 }
 
-body>#root>div {
+/* body>#root>div {
   height: 100vh;
-}
+} */
 
 body {
   background-color: var(--primary-color);
@@ -106,6 +106,7 @@ header .nav>* {
   box-sizing: border-box;
   margin: 0 auto;
   padding: 0.5rem;
+  height: 100vh;
 }
 
 .profile-card {
@@ -130,9 +131,9 @@ header .nav>* {
   cursor: pointer;
 }
 
-img {
+/* img {
   border-radius: 50%;
-}
+} */
 
 @media (min-width: 1000px) {
   .container {

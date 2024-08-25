@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { updateCustomer, deleteCustomer, addCustomer, getCustomer } from './api/customer';
-import { useNavigate } from "react-router-dom";
-import { useForm } from 'react-hook-form';
-import { confirmAlert } from 'react-confirm-alert';
-import 'react-confirm-alert/src/react-confirm-alert.css'; 
+import { addCustomer, deleteCustomer, getCustomer, updateCustomer } from '../api/customer';
 
 const UpdateCustomer = ({customerId, onNavClick}) => {
   const id = customerId || '';
@@ -99,8 +97,8 @@ const UpdateCustomer = ({customerId, onNavClick}) => {
           <div className='update-container'>
             <div className='profile-card-update center'>
               <div className='profile-head'>
-                <a onClick={()=>onNavClick('list')} className='arrow-div'>
-                  <img src={require('../assests/leftArrow.png')} className='arrow-icon' alt="Back" />
+                <a onClick={()=>onNavClick('listCustomer')} className='arrow-div'>
+                  <img src={require('../../assests/leftArrow.png')} className='arrow-icon' alt="Back" />
                 </a>
                 <h3 className='heading'>{id ? `Update Customer` : `Create Customer`}</h3>
               </div>

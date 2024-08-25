@@ -1,9 +1,5 @@
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined
-} from '@ant-design/icons';
+import { Layout, Menu, theme } from 'antd';
 import React from 'react';
-import { Button, Layout, Menu, Row, Col, theme } from 'antd';
 
 
 const Nav = ({ setCollapsed, collapsed }) => {
@@ -14,22 +10,26 @@ const Nav = ({ setCollapsed, collapsed }) => {
 
   const loggedInUser = localStorage.getItem('loggedInUser');
   const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true' || false;
-  const items1 = ['1', '2', '3'].map((key) => ({
-    key,
-    label: `nav ${key}`,
+  const items1 = ['Home', 'Sales'].map((item, index) => ({
+    index,
+    label: item,
   }));
   return (
     <Header
       style={{
         display: 'flex',
         alignItems: 'center',
+        zIndex: '99'
       }}
     >
-      <div className="demo-logo" > LOGO </div>
+      <div className="demo-logo" >
+        {/* LOGO */}
+        <a href='/home'><img className='main-logo' src={require('../../assests/logo.jpg')} alt="" /></a>
+      </div>
       <Menu
         theme="dark"
         mode="horizontal"
-        defaultSelectedKeys={['1']}
+        defaultSelectedKeys={['Home']}
         items={items1}
         style={{
           flex: 1,

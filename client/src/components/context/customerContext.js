@@ -1,24 +1,19 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
-// Create the CustomerContext
 const CustomerContext = createContext();
 
-// Create a provider component
 export const CustomerProvider = ({ children }) => {
-  const [customerId, setCustomerId] = useState('');
+  const [customerId, setCustomerId] = useState(null);
 
-  const handleCustomer = (id) => {    
+  const handleCustomer = (id) => {
     setCustomerId(id);
-  }
+  };
 
   return (
-    <CustomerContext.Provider value={{ handleCustomer, customerId, setCustomerId }}>
+    <CustomerContext.Provider value={{ customerId, handleCustomer }}>
       {children}
     </CustomerContext.Provider>
   );
 };
 
-// Custom hook to use the CustomerContext
-export const useCustomers = () => {
-  return useContext(CustomerContext);
-};
+export const useCustomers = () => useContext(CustomerContext);

@@ -1,7 +1,8 @@
 import {
   LaptopOutlined,
   NotificationOutlined,
-  UserOutlined
+  UserOutlined,
+  ProductOutlined
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme } from 'antd';
 import React from 'react';
@@ -39,24 +40,38 @@ const SideNav = ({ collapsed, onNavClick }) => {
     navigate('/login');
   }
 
-  const menuItems = [{
-    key: '1',
-    icon: <UserOutlined />,
-    label: 'Customer',
-    children: [
-      {
-        key: '2',
-        label: 'Add Customer',
-      }
-    ],
-    onClick: () => { onNavClick('add') }
-  },{
-    key: '3',
-    icon: <UserOutlined />,
-    label: 'Logout',
-    onClick: () => { handleLogout() }
-  }
-]
+  const menuItems = [
+    {
+      key: '1',
+      icon: <ProductOutlined />,
+      label: 'Product',
+      children: [
+        {
+          key: '2',
+          label: 'Products',
+        }
+      ],
+      onClick: () => { navigate('/product') }
+    },
+    {
+      key: '3',
+      icon: <UserOutlined />,
+      label: 'Customer',
+      children: [
+        {
+          key: '4',
+          label: 'Add Customer',
+        }
+      ],
+      onClick: () => { navigate('/addCustomer') }
+    }, 
+    {
+      key: '5',
+      icon: <UserOutlined />,
+      label: 'Logout',
+      onClick: () => { handleLogout() }
+    }
+  ]
 
   return (
     <Sider
@@ -75,7 +90,7 @@ const SideNav = ({ collapsed, onNavClick }) => {
         }}
         items={menuItems}
       />
-      
+
     </Sider>
   )
 }

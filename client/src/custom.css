@@ -24,3 +24,14 @@
     flex-direction: row;
     justify-content: space-between;
 }
+.button-div{
+    margin-bottom: 10px;
+    float: right;
+}
+.main-logo{
+    width: 5rem;
+}
+.demo-logo{
+    height: 100%;
+    width: 150px;
+}
