@@ -41,6 +41,7 @@ router.get('/:id', isAuthenticated, async (req, res) => {
 router.put('/:id', isAuthenticated, async (req, res) => {
   try {
     const product = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+    console.log("product====", product)
     if (!product) {
       return res.status(404).json({ success: false, error: 'Product not found' });
     }

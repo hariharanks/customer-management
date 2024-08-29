@@ -3,7 +3,7 @@ import { Table, Image, Spin } from 'antd';
 import { generateURL } from '../../utils/imageUrl';
 
 
-const columns = [
+const columns = (editProduct) => [
   {
     title: 'Image',
     width: 100,
@@ -71,11 +71,13 @@ const columns = [
     key: 'operation',
     fixed: 'right',
     width: 100,
-    render: () => <a>Edit</a>,
+    render: (_, record) => (
+      <a onClick={() => editProduct(record)}>Edit</a>
+    ),
   },
 ];
 
-const ProductList = ({data, loading}) => {
+const ProductList = ({ data, loading, onEdit }) => {
 
   if (loading) {
     return <Spin tip="Loading..." />;
@@ -83,7 +85,7 @@ const ProductList = ({data, loading}) => {
 
   return (
     <Table
-      columns={columns}
+      columns={columns(onEdit)}
       dataSource={data}
       pagination={{
         pageSize: 10,

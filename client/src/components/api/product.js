@@ -35,3 +35,14 @@ export const uploadImage = async (formData) => {
     throw error;
   }
 }
+
+export const updateProduct = async (productId, productData) => {
+  console.log("productId, productData",productId, productData);
+  
+  try {
+    const response = await axiosInstance.put(`/api/products/${productId}`, productData);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error.message;
+  }
+};

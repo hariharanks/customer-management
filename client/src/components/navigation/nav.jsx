@@ -19,7 +19,7 @@ const Nav = ({ setCollapsed, collapsed }) => {
       style={{
         display: 'flex',
         alignItems: 'center',
-        zIndex: '99'
+        zIndex: '999'
       }}
     >
       <div className="demo-logo" >
