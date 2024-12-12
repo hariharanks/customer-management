@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import Search from './utils/SearchBar';
+import Search from './SearchBar';
 
 
 const Header = ({ query, setQuery }) => {
@@ -12,11 +12,11 @@ const Header = ({ query, setQuery }) => {
   return (
     <header>
         <nav>
-          <div class="container">
-            <a href="javascript:0">Customer Register</a>
+          <div className="container">
+            <a href="/">Customer Register</a>
             <Search query={query} setQuery={setQuery}/>
-            <ul class="nav right">
-            <button class="btn" onClick={()=>redirect()}><i class="fa fa-plus"></i> Create Customer</button>
+            <ul className="nav right">
+            <button className="btn" onClick={()=>redirect()}><i className="fa fa-plus"></i> Create Customer</button>
             </ul>
           </div>
         </nav>

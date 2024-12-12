@@ -3,9 +3,11 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { updateCustomer, deleteCustomer, addCustomer } from './api';
+import { updateCustomer, deleteCustomer, addCustomer } from './api/api';
 import { useNavigate } from "react-router-dom";
 import { useForm } from 'react-hook-form';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css'; 
 
 const UpdateCustomer = () => {
   const { id } = useParams();
@@ -50,6 +52,23 @@ const UpdateCustomer = () => {
   };
 
   const handleDelete = async () => {
+    confirmAlert({
+      title: 'Are you sure ?',
+      buttons: [
+        {
+          className:'btn-yes',
+          label: 'Yes',
+          onClick: () => deleteUser()
+        },
+        {
+          className:'btn-no',
+          label: 'No',
+        }
+      ]
+    });
+  };
+
+  const deleteUser = async ()=>{
     const result = await deleteCustomer(id);
     if (result) {
       toast.success('Customer deleted successfully');
@@ -60,7 +79,7 @@ const UpdateCustomer = () => {
     } else {
       toast.error('Failed to delete');
     }
-  };
+  }
 
   const clear = () => {
     setCustomer({ name: '', email: '', phone: '', address: '' });
@@ -123,7 +142,7 @@ const UpdateCustomer = () => {
                   {...register('phone', {
                     required: 'Phone is required',
                     pattern: {
-                      value: /^\d{10}$/,
+                      value: /^\d/,
                       message: 'Invalid phone number'
                     }
                   })}
